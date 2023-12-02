@@ -1,0 +1,7 @@
+cmake-build-debug
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
+jam
+Makefile
+.idea
