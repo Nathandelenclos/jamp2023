@@ -107,7 +107,7 @@ void Game::moveView(sf::Keyboard::Key key) {
             break;
     }
     std::cout << "viewPosition.x: " << viewPosition.x << " viewPosition.y: " << viewPosition.y << std::endl;
-//    clampViewPosition();
+    clampViewPosition();
 }
 
 void Game::clampViewPosition() {
