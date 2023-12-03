@@ -12,11 +12,11 @@
 
 class Text {
 public:
-    Text(std::string &text, float x, float y);
-    Text(std::string &text, float x, float y, int size);
-    Text(std::string &text, float x, float y, int size, sf::Color color);
-    Text(std::string &text, float x, float y, int size, sf::Color color, sf::Uint32 style);
-    Text(std::string &text, float x, float y, int size, sf::Color color, sf::Uint32 style, std::string &fontFile);
+    Text(const std::string &text, float x, float y);
+    Text(const std::string &text, float x, float y, int size);
+    Text(const std::string &text, float x, float y, int size, sf::Color color);
+    Text(const std::string &text, float x, float y, int size, sf::Color color, sf::Uint32 style);
+    Text(const std::string &text, float x, float y, int size, sf::Color color, sf::Uint32 style, std::string &fontFile);
     Text(const Text &obj);
     ~Text();
     void update(std::string &text);

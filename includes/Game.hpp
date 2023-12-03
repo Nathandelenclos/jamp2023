@@ -23,6 +23,7 @@ public:
     void render();
     void generateGrid();
     void genereateTextures();
+    void generateText();
 
 private:
     const float velocity = 9000.0f;

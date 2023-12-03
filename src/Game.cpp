@@ -8,12 +8,14 @@
 #include "Game.hpp"
 #include "GridConfig.hpp"
 #include <cstdlib>
+#include "Text.hpp"
 
 Game::Game() : windowWidth(1000),
                windowHeight(1000),
                window(sf::VideoMode(1000, 1000), "Fact2D") {
     genereateTextures();
     generateGrid();
+    generateText();
     viewPosition.x = GridConfig::GRID_SIZE * GridConfig::SQUARE_SIZE / 2;
     viewPosition.y = GridConfig::GRID_SIZE * GridConfig::SQUARE_SIZE / 2;
     std::cout << "generateGrid" << std::endl;
@@ -54,6 +56,23 @@ void Game::render() {
     for (auto &text: texts) {
         text.draw(window);
     }
+
+    // sf::Font font;
+    // if (!font.loadFromFile("./assets/police.ttf")) {
+    //     // Handle font loading failure
+    //     return;
+    // }
+
+    // // Create a text object
+    // sf::Text text;
+    // text.setFont(font);
+    // text.setString("Hello, SFML!");
+    // text.setCharacterSize(24);
+    // text.setFillColor(sf::Color::White);
+    // text.setStyle(sf::Text::Bold);
+    // text.setPosition(100, 100);
+    // window.draw(text);
+    generateText();
     window.display();
 }
 
@@ -91,8 +110,6 @@ void Game::generateGrid() {
     std::cout << "grid.size()" << grid.size() << "grid[0].size()" << grid[0].size() << std::endl;
 }
 
-
-
 void Game::genereateTextures() {
     textures["rock"] = sf::Texture();
     textures["rock"].loadFromFile("./assets/rock.jpg");
@@ -100,4 +117,39 @@ void Game::genereateTextures() {
     textures["dirt"].loadFromFile("./assets/dirt.jpg");
     textures["copper"] = sf::Texture();
     textures["copper"].loadFromFile("./assets/copper.jpg");
+}
+
+void Game::generateText() {
+
+    sf::Font font;
+    if (!font.loadFromFile("./assets/police.ttf")) {
+        return;
+    }
+
+    sf::Text text;
+    text.setFont(font);
+    text.setString("Press 1 = Drill");
+    text.setCharacterSize(14);
+    text.setFillColor(sf::Color::White);
+    text.setStyle(sf::Text::Bold);
+    text.setPosition(10, 10);
+    sf::Text text2;
+    text2.setFont(font);
+    text2.setString("Press 2 = Forge");
+    text2.setCharacterSize(14);
+    text2.setFillColor(sf::Color::White);
+    text2.setStyle(sf::Text::Bold);
+    text2.setPosition(10, 30);
+    sf::Text text3;
+    text3.setFont(font);
+    text3.setString("Press 3 = Industry");
+    text3.setCharacterSize(14);
+    text3.setFillColor(sf::Color::White);
+    text3.setStyle(sf::Text::Bold);
+    text3.setPosition(10, 50);
+
+    window.draw(text);
+    window.draw(text2);
+    window.draw(text3);
+
 }

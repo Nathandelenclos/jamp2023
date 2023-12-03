@@ -7,7 +7,7 @@
 
 #include "Text.hpp"
 
-Text::Text(std::string &text, float x, float y) : x(x), y(y)
+Text::Text(const std::string &text, float x, float y) : x(x), y(y)
 {
     if (!font.loadFromFile("./assets/arial.ttf"))
         std::cout << "Error loading font" << std::endl;
@@ -18,7 +18,7 @@ Text::Text(std::string &text, float x, float y) : x(x), y(y)
     sprite.setStyle(sf::Text::Bold | sf::Text::Underlined);
 }
 
-Text::Text(std::string &text, float x, float y, int size) : x(x), y(y)
+Text::Text(const std::string &text, float x, float y, int size) : x(x), y(y)
 {
     if (!font.loadFromFile("./assets/arial.ttf"))
         std::cout << "Error loading font" << std::endl;
@@ -29,7 +29,7 @@ Text::Text(std::string &text, float x, float y, int size) : x(x), y(y)
     sprite.setStyle(sf::Text::Bold | sf::Text::Underlined);
 }
 
-Text::Text(std::string &text, float x, float y, int size, sf::Color color) : x(x), y(y)
+Text::Text(const std::string &text, float x, float y, int size, sf::Color color) : x(x), y(y)
 {
     if (!font.loadFromFile("./assets/arial.ttf"))
         std::cout << "Error loading font" << std::endl;
@@ -40,7 +40,7 @@ Text::Text(std::string &text, float x, float y, int size, sf::Color color) : x(x
     sprite.setStyle(sf::Text::Bold | sf::Text::Underlined);
 }
 
-Text::Text(std::string &text, float x, float y, int size, sf::Color color, sf::Uint32 style) : x(x), y(y)
+Text::Text(const std::string &text, float x, float y, int size, sf::Color color, sf::Uint32 style) : x(x), y(y)
 {
     if (!font.loadFromFile("./assets/arial.ttf"))
         std::cout << "Error loading font" << std::endl;
@@ -51,7 +51,7 @@ Text::Text(std::string &text, float x, float y, int size, sf::Color color, sf::U
     sprite.setStyle(style);
 }
 
-Text::Text(std::string &text, float x, float y, int size, sf::Color color, sf::Uint32 style, std::string &fontFile) : x(x), y(y)
+Text::Text(const std::string &text, float x, float y, int size, sf::Color color, sf::Uint32 style, std::string &fontFile) : x(x), y(y)
 {
     if (!font.loadFromFile(fontFile))
         std::cout << "Error loading font" << std::endl;
