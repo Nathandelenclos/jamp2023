@@ -3,11 +3,38 @@
 //
 
 #include "Case.hpp"
+#include "GridConfig.hpp"
 
-Case::Case(float x, float y, const std::string& texturePath) : Object(x, y, texturePath) {
+Case::Case(float x, float y, const std::string& texturePath) : Object(x, y, texturePath), type(OTHER) {
     std::cout << "Case constructor with " << texturePath << " x= " << x << " y= " << y << std::endl;
 }
 
-Case::Case(float x, float y, sf::Texture &texture) : Object(x, y, texture) {
+Case::Case(float x, float y, CaseType type, sf::Texture &texture) : Object(x, y, texture), type(type) {
     std::cout << "Case constructor with texture x= " << x << " y= " << y << std::endl;
+}
+
+Case::~Case() = default;
+
+void Case::update(sf::Event event, float deltaTime) {
+static bool isPressed = false;
+    if (event.mouseButton.x >= x && event.mouseButton.x <= x + GridConfig::SQUARE_SIZE &&
+        event.mouseButton.y >= y && event.mouseButton.y <= y + GridConfig::SQUARE_SIZE) {
+        if (event.type == sf::Event::MouseButtonPressed) {
+            isPressed = true;
+        }
+        if (event.type == sf::Event::MouseButtonReleased && isPressed) {
+            std::cout << this << " type=" << type << std::endl;
+            isPressed = false;
+        }
+    }
+}
+
+std::ostream &operator<<(std::ostream &stream, const Case &aCase) {
+    std::map<CaseType, std::string> caseTypeMap = {
+            {COPPER, "COPPER"},
+            {DIRT, "DIRT"},
+            {ROCK, "ROCK"},
+            {OTHER, "OTHER"}
+    };
+    return stream << caseTypeMap[aCase.type] << " " << aCase.x << " " << aCase.y;
 }

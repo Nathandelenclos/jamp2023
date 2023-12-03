@@ -16,12 +16,14 @@ public:
     Object(float x, float y, sf::Texture &texture);
     Object(const Object &obj);
     ~Object();
-    void update(sf::Event event, float deltaTime);
+
+    virtual void update(sf::Event event, float deltaTime);
     void draw(sf::RenderWindow &window);
 
 protected:
-    float x{};
-    float y{};
+    float x;
+    float y;
+    std::string texturePath;
     sf::Sprite sprite;
     sf::Texture texture;
 };

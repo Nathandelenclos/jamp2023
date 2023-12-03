@@ -32,11 +32,16 @@ void Game::run() {
         sf::Time time = clock.restart();
         deltaTime = time.asSeconds();
         fps = 1.0f / deltaTime;
-        std::cout << "fps: " << fps << std::endl;
+//        std::cout << "fps: " << fps << std::endl;
     }
 }
 
 void Game::update() {
+    for (auto &row: grid) {
+        for (auto &caseObj: row) {
+            caseObj.update(event, deltaTime);
+        }
+    }
     for (auto &object: objects)
         object.update(event, deltaTime);
 }
@@ -64,6 +69,7 @@ void Game::processEvents() {
         if (event.type == sf::Event::KeyPressed) {
             moveView(event.key.code);
         }
+
     }
 }
 
@@ -77,11 +83,11 @@ void Game::generateGrid() {
             std::cout << "x: " << x << " y: " << y << std::endl;
             float randomValue = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
             if (randomValue < GridConfig::ROCK_PROBABILITY) {
-                row.emplace_back(x, y, textures["rock"]);
+                row.emplace_back(x, y, CaseType::ROCK, textures["rock"]);
             } else if (randomValue < GridConfig::ROCK_PROBABILITY + GridConfig::DIRT_PROBABILITY) {
-                row.emplace_back(x, y, textures["dirt"]);
+                row.emplace_back(x, y, CaseType::DIRT, textures["dirt"]);
             } else {
-                row.emplace_back(x, y, textures["copper"]);
+                row.emplace_back(x, y, CaseType::COPPER,textures["copper"]);
             }
         }
         grid.push_back(row);
@@ -107,12 +113,13 @@ void Game::moveView(sf::Keyboard::Key key) {
             break;
     }
     std::cout << "viewPosition.x: " << viewPosition.x << " viewPosition.y: " << viewPosition.y << std::endl;
-    clampViewPosition();
+//    clampViewPosition();
 }
 
 void Game::clampViewPosition() {
-    if (viewPosition.x < 0) viewPosition.x = 0;
-    if (viewPosition.y < 0) viewPosition.y = 0;
+    const float halfViewSize = GridConfig::GRID_SIZE * GridConfig::SQUARE_SIZE / 2;
+    if (viewPosition.x < halfViewSize) viewPosition.x = halfViewSize;
+    if (viewPosition.y < halfViewSize) viewPosition.y = halfViewSize;
     if (viewPosition.x >= GridConfig::GRID_SIZE) viewPosition.x = GridConfig::GRID_SIZE - 1;
     if (viewPosition.y >= GridConfig::GRID_SIZE) viewPosition.y = GridConfig::GRID_SIZE - 1;
     view.setCenter(viewPosition);
