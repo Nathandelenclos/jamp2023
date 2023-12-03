@@ -9,7 +9,7 @@
 #include "GridConfig.hpp"
 #include <cstdlib>
 
-Game::Game() : window(sf::VideoMode(800, 600), "SFML window"), viewPosition(0, 0) {
+Game::Game() : window(sf::VideoMode(800, 600), "Fact2D"), viewPosition(0, 0) {
     generateGrid();
     view.setSize(sf::Vector2f(window.getSize()));
     view.setCenter(viewPosition.x * GridConfig::SQUARE_SIZE, viewPosition.y * GridConfig::SQUARE_SIZE);
