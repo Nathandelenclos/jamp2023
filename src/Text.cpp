@@ -9,7 +9,7 @@
 
 Text::Text(std::string &text, float x, float y) : x(x), y(y)
 {
-    if (!font.loadFromFile("../assets/arial.ttf"))
+    if (!font.loadFromFile("./assets/arial.ttf"))
         std::cout << "Error loading font" << std::endl;
     sprite.setFont(font);
     sprite.setString(text);
@@ -20,7 +20,7 @@ Text::Text(std::string &text, float x, float y) : x(x), y(y)
 
 Text::Text(std::string &text, float x, float y, int size) : x(x), y(y)
 {
-    if (!font.loadFromFile("../assets/arial.ttf"))
+    if (!font.loadFromFile("./assets/arial.ttf"))
         std::cout << "Error loading font" << std::endl;
     sprite.setFont(font);
     sprite.setString(text);
@@ -31,7 +31,7 @@ Text::Text(std::string &text, float x, float y, int size) : x(x), y(y)
 
 Text::Text(std::string &text, float x, float y, int size, sf::Color color) : x(x), y(y)
 {
-    if (!font.loadFromFile("../assets/arial.ttf"))
+    if (!font.loadFromFile("./assets/arial.ttf"))
         std::cout << "Error loading font" << std::endl;
     sprite.setFont(font);
     sprite.setString(text);
@@ -42,7 +42,7 @@ Text::Text(std::string &text, float x, float y, int size, sf::Color color) : x(x
 
 Text::Text(std::string &text, float x, float y, int size, sf::Color color, sf::Uint32 style) : x(x), y(y)
 {
-    if (!font.loadFromFile("../assets/arial.ttf"))
+    if (!font.loadFromFile("./assets/arial.ttf"))
         std::cout << "Error loading font" << std::endl;
     sprite.setFont(font);
     sprite.setString(text);
@@ -64,7 +64,7 @@ Text::Text(std::string &text, float x, float y, int size, sf::Color color, sf::U
 
 Text::Text(const Text &obj) : x(obj.x), y(obj.y)
 {
-    if (!font.loadFromFile("../assets/arial.ttf"))
+    if (!font.loadFromFile("./assets/arial.ttf"))
         std::cout << "Error loading font" << std::endl;
     sprite.setFont(font);
     sprite.setString("Hello world");

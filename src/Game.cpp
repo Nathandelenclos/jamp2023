@@ -8,7 +8,7 @@
 #include "Game.hpp"
 
 Game::Game() : window(sf::VideoMode(800, 600), "SFML window") {
-    objects.emplace_back(0, 0, "../assets/Fuel_Generator.png");
+    objects.emplace_back(0, 0, "./assets/Fuel_Generator.png");
 }
 
 void Game::run() {

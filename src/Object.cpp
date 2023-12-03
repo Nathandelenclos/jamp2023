@@ -9,13 +9,13 @@
 
 Object::Object() : x(0), y(0)
 {
-    texture.loadFromFile("../assets/Fuel_Generator.png");
+    texture.loadFromFile("./assets/Fuel_Generator.png");
     sprite.setTexture(texture);
 }
 
 Object::Object(float x, float y) : x(x), y(y)
 {
-    texture.loadFromFile("../assets/Fuel_Generator.png");
+    texture.loadFromFile("./assets/Fuel_Generator.png");
     sprite.setTexture(texture);
 }
 
@@ -27,7 +27,7 @@ Object::Object(float x, float y, const std::string& texturePath) : x(x), y(y)
 
 Object::Object(const Object &obj) : x(obj.x), y(obj.y)
 {
-    texture.loadFromFile("../assets/Fuel_Generator.png");
+    texture.loadFromFile("./assets/Fuel_Generator.png");
     sprite.setTexture(texture);
 }
 

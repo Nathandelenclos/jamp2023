@@ -6,12 +6,12 @@
 
 Case::Case() : Object()
 {
-    texture.loadFromFile("../assets/Case.png");
+    texture.loadFromFile("./assets/Case.png");
     sprite.setTexture(texture);
 }
 
 Case::Case(float x, float y) : Object(x, y)
 {
-    texture.loadFromFile("../assets/Case.png");
+    texture.loadFromFile("./assets/Case.png");
     sprite.setTexture(texture);
 }
