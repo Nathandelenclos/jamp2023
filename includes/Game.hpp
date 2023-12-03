@@ -25,7 +25,7 @@ public:
     void genereateTextures();
 
 private:
-    const float velocity = 100000.0f;
+    const float velocity = 9000.0f;
     sf::RenderWindow window;
     int windowWidth;
     int windowHeight;

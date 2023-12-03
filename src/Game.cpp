@@ -11,16 +11,16 @@
 
 Game::Game() : windowWidth(800),
                windowHeight(600),
-               window(sf::VideoMode(800, 600), "Fact2D"),
-               viewPosition(0, 0),
-               view(sf::FloatRect(-400, -300, 800, 600)) {
-    std::cout << "Game constructor" << std::endl;
+               window(sf::VideoMode(800, 600), "Fact2D") {
     genereateTextures();
     generateGrid();
+    viewPosition.x = GridConfig::GRID_SIZE * GridConfig::SQUARE_SIZE / 2;
+    viewPosition.y = GridConfig::GRID_SIZE * GridConfig::SQUARE_SIZE / 2;
     std::cout << "generateGrid" << std::endl;
     std::cout << "view.setSize" << std::endl;
     std::cout << "view.setCenter" << std::endl;
-    window.setView(view);
+    view = window.getDefaultView();
+    window.setFramerateLimit(60);
     std::cout << "window.setView" << std::endl;
 }
 
@@ -32,6 +32,7 @@ void Game::run() {
         sf::Time time = clock.restart();
         deltaTime = time.asSeconds();
         fps = 1.0f / deltaTime;
+        std::cout << "fps: " << fps << std::endl;
     }
 }
 
@@ -110,10 +111,10 @@ void Game::moveView(sf::Keyboard::Key key) {
 }
 
 void Game::clampViewPosition() {
-//    if (viewPosition.x < 0) viewPosition.x = 0;
-//    if (viewPosition.y < 0) viewPosition.y = 0;
-//    if (viewPosition.x >= GridConfig::GRID_SIZE) viewPosition.x = GridConfig::GRID_SIZE - 1;
-//    if (viewPosition.y >= GridConfig::GRID_SIZE) viewPosition.y = GridConfig::GRID_SIZE - 1;
+    if (viewPosition.x < 0) viewPosition.x = 0;
+    if (viewPosition.y < 0) viewPosition.y = 0;
+    if (viewPosition.x >= GridConfig::GRID_SIZE) viewPosition.x = GridConfig::GRID_SIZE - 1;
+    if (viewPosition.y >= GridConfig::GRID_SIZE) viewPosition.y = GridConfig::GRID_SIZE - 1;
     view.setCenter(viewPosition);
     window.setView(view);
 }
