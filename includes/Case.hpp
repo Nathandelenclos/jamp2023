@@ -8,6 +8,7 @@
 #pragma once
 
 #include "Object.hpp"
+#include "Engine.hpp"
 
 enum CaseType {
     COPPER, DIRT, ROCK, OTHER
@@ -19,7 +20,7 @@ public:
     Case(float x, float y, CaseType type, sf::Texture &texture);
     ~Case();
     void update(sf::Event event, float deltaTime) override;
-    void update(sf::Event event, float deltaTime, Object *&attachedMouse);
+    void update(sf::Event event, float deltaTime, Engine *&attachedMouse);
     friend std::ostream& operator<<(std::ostream&, const Case&);
     CaseType type;
 

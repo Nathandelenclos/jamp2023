@@ -38,7 +38,7 @@ std::ostream &operator<<(std::ostream &stream, const Case &aCase) {
     return stream;
 }
 
-void Case::update(sf::Event event, float deltaTime, Object *&attachedMouse) {
+void Case::update(sf::Event event, float deltaTime, Engine *&attachedMouse) {
     update(event, deltaTime);
     if (attachedMouse == nullptr) return;
     if (event.type == sf::Event::MouseButtonReleased) {
