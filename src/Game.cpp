@@ -111,14 +111,14 @@ void Game::processEvents() {
             } else if (event.key.code == sf::Keyboard::Num2) {
                 if (attachedMouse != nullptr)
                     engines.pop_back();
-                engines.emplace_back(event.mouseButton.x, event.mouseButton.y, EngineType::DRILL, textures["forge"]);
+                engines.emplace_back(event.mouseButton.x, event.mouseButton.y, EngineType::FORGE, textures["forge"]);
                 attachedMouse = &engines.back();
                 attachedMouse->setOrigin(270, 300);
                 attachedMouse->setScale(0.3, 0.3);
             } else if (event.key.code == sf::Keyboard::Num3) {
                 if (attachedMouse != nullptr)
                     engines.pop_back();
-                engines.emplace_back(event.mouseButton.x, event.mouseButton.y, EngineType::DRILL, textures["constructor"]);
+                engines.emplace_back(event.mouseButton.x, event.mouseButton.y, EngineType::INDUSTRY, textures["constructor"]);
                 attachedMouse = &engines.back();
                 attachedMouse->setOrigin(270, 300);
                 attachedMouse->setScale(0.3, 0.3);
