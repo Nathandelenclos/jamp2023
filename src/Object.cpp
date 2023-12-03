@@ -7,6 +7,7 @@
 
 #include "Object.hpp"
 #include "GridConfig.hpp"
+#include "Engine.hpp"
 
 Object::Object(float x, float y, const std::string &texturePath) : x(x), y(y) {
     texture.loadFromFile(texturePath);

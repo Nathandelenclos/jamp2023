@@ -19,5 +19,6 @@ public:
     ~Engine();
     void update(sf::Event event, float deltaTime) override;
     friend std::ostream& operator<<(std::ostream&, const Engine&);
+    void setColor(sf::Color color);
     EngineType type;
 };

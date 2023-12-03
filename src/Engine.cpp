@@ -9,10 +9,16 @@ Engine::Engine(float x, float y, EngineType type, sf::Texture &texture) : Object
 
 }
 
+
 Engine::~Engine() = default;
 
 void Engine::update(sf::Event event, float deltaTime) {
     Object::update(event, deltaTime);
+}
+
+void Engine::setColor(sf::Color color) {
+    this->sprite.setColor(color);
+
 }
 
 std::ostream &operator<<(std::ostream &ostream, const Engine &e) {

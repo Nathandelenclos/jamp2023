@@ -27,6 +27,12 @@ void Case::update(sf::Event event, float deltaTime) {
     }
 }
 
+void Case::draw(sf::RenderWindow &window, Engine *engines) {
+    if (engines != nullptr)
+        engines->setColor(sf::Color::Red);
+    window.draw(this->sprite); // definir couleur item
+}
+
 std::ostream &operator<<(std::ostream &stream, const Case &aCase) {
     std::map<CaseType, std::string> caseTypeMap = {
             {COPPER, "COPPER"},
@@ -41,7 +47,7 @@ std::ostream &operator<<(std::ostream &stream, const Case &aCase) {
 void Case::update(sf::Event event, float deltaTime, Engine *&attachedMouse) {
     update(event, deltaTime);
     if (attachedMouse == nullptr) return;
-    if (event.type == sf::Event::MouseButtonReleased) {
+    if (event.type == sf::Event::MouseButtonReleased) { //faire condition pour poser
         attachedMouse = nullptr;
     }
 }

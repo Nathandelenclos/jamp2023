@@ -49,7 +49,7 @@ void Game::render() {
     window.clear();
     for (auto &row: grid) {
         for (auto &caseObj: row) {
-            caseObj.draw(window);
+            caseObj.draw(window, attachedMouse);
         }
     }
     generateText();
@@ -102,7 +102,23 @@ void Game::processEvents() {
                     break;
             }
             if (event.key.code == sf::Keyboard::Num1) {
+                if (attachedMouse != nullptr)
+                    engines.pop_back();
                 engines.emplace_back(event.mouseButton.x, event.mouseButton.y, EngineType::DRILL, textures["fuel"]);
+                attachedMouse = &engines.back();
+                attachedMouse->setOrigin(270, 300);
+                attachedMouse->setScale(0.3, 0.3);
+            } else if (event.key.code == sf::Keyboard::Num2) {
+                if (attachedMouse != nullptr)
+                    engines.pop_back();
+                engines.emplace_back(event.mouseButton.x, event.mouseButton.y, EngineType::DRILL, textures["forge"]);
+                attachedMouse = &engines.back();
+                attachedMouse->setOrigin(270, 300);
+                attachedMouse->setScale(0.3, 0.3);
+            } else if (event.key.code == sf::Keyboard::Num3) {
+                if (attachedMouse != nullptr)
+                    engines.pop_back();
+                engines.emplace_back(event.mouseButton.x, event.mouseButton.y, EngineType::DRILL, textures["constructor"]);
                 attachedMouse = &engines.back();
                 attachedMouse->setOrigin(270, 300);
                 attachedMouse->setScale(0.3, 0.3);
@@ -139,6 +155,10 @@ void Game::generateTextures() {
     textures["copper"].loadFromFile("./assets/copper.jpg");
     textures["fuel"] = sf::Texture();
     textures["fuel"].loadFromFile("./assets/Fuel_Generator.png");
+    textures["forge"] = sf::Texture();
+    textures["forge"].loadFromFile("./assets/Smelter.png");
+    textures["constructor"] = sf::Texture();
+    textures["constructor"].loadFromFile("./assets/Constructor.png");
 }
 
 void Game::generateText() {

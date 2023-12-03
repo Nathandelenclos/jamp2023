@@ -19,8 +19,9 @@ public:
     Case(float x, float y, const std::string& texturePath);
     Case(float x, float y, CaseType type, sf::Texture &texture);
     ~Case();
-    void update(sf::Event event, float deltaTime) override;
+    void update(sf::Event event, float deltaTime);
     void update(sf::Event event, float deltaTime, Engine *&attachedMouse);
+    void draw(sf::RenderWindow &window, Engine *engines);
     friend std::ostream& operator<<(std::ostream&, const Case&);
     CaseType type;
 
