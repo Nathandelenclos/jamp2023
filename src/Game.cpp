@@ -62,12 +62,43 @@ void Game::render() {
 
 
 void Game::processEvents() {
+    static enum { None, PressedJ, PressedJA, PressedJAM } sequenceState = None;
+
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
             window.close();
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::Escape)
                 window.close();
+            switch (sequenceState) {
+                case None:
+                    if (event.key.code == sf::Keyboard::J)
+                        sequenceState = PressedJ;
+                    else
+                        sequenceState = None;
+                    break;
+                case PressedJ:
+                    if (event.key.code == sf::Keyboard::A)
+                        sequenceState = PressedJA;
+                    else
+                        sequenceState = None;
+                    break;
+                case PressedJA:
+                    if (event.key.code == sf::Keyboard::M) {
+                        sequenceState = PressedJAM;
+                        window.close();
+                        std::cout << "You Won!" << std::endl;
+                    } else {
+                        sequenceState = None;
+                    }
+                    break;
+                case PressedJAM:
+                    sequenceState = None;
+                    break;
+                default:
+                    sequenceState = None;
+                    break;
+            }
             if (event.key.code == sf::Keyboard::A) {
                 objects.emplace_back(event.mouseButton.x, event.mouseButton.y, textures["fuel"]);
                 attachedMouse = &objects.back();

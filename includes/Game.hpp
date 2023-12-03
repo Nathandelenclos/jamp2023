@@ -37,4 +37,5 @@ private:
     std::map<std::string, sf::Texture> textures;
     Object *attachedMouse;
     std::vector<sf::Text> texts;
+    static std::string input;
 };
