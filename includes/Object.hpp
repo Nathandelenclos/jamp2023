@@ -19,6 +19,8 @@ public:
 
     virtual void update(sf::Event event, float deltaTime);
     void draw(sf::RenderWindow &window);
+    void setPosition(float x, float y);
+    void setScale(float x, float y) { sprite.setScale(x, y); }
 
 protected:
     float x;

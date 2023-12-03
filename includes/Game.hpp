@@ -22,21 +22,19 @@ public:
     void update();
     void render();
     void generateGrid();
-    void genereateTextures();
     void generateText();
+    void generateTextures();
+
 
 private:
-    const float velocity = 9000.0f;
     sf::RenderWindow window;
-    int windowWidth;
-    int windowHeight;
     std::vector<Object> objects;
-    std::vector<Text> texts;
     sf::Event event{};
     sf::Clock clock;
     float deltaTime{};
-    float fps;
     std::vector<std::vector<Case>> grid;
     sf::Vector2<float> viewPosition;
     std::map<std::string, sf::Texture> textures;
+    Object *attachedMouse;
+    std::vector<sf::Text> texts;
 };

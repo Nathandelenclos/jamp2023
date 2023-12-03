@@ -6,11 +6,9 @@
 #include "GridConfig.hpp"
 
 Case::Case(float x, float y, const std::string &texturePath) : Object(x, y, texturePath), type(OTHER) {
-    std::cout << "Case constructor with " << texturePath << " x= " << x << " y= " << y << std::endl;
 }
 
 Case::Case(float x, float y, CaseType type, sf::Texture &texture) : Object(x, y, texture), type(type) {
-    std::cout << "Case constructor with texture x= " << x << " y= " << y << std::endl;
 }
 
 Case::~Case() = default;
@@ -38,4 +36,14 @@ std::ostream &operator<<(std::ostream &stream, const Case &aCase) {
     };
     stream << "Case(" << aCase.x << ", " << aCase.y << ", " << caseTypeMap[aCase.type] << ")";
     return stream;
+}
+
+void Case::update(sf::Event event, float deltaTime, Object *&attachedMouse) {
+    update(event, deltaTime);
+    if (attachedMouse == nullptr) return;
+    if (event.type == sf::Event::MouseButtonReleased) {
+        std::cout << " x=" << x << " y=" << y << std::endl;
+        attachedMouse->setPosition(this->x, this->y);
+        attachedMouse = nullptr;
+    }
 }

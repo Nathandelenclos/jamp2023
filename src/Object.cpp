@@ -18,8 +18,6 @@ Object::Object(const Object &obj) : x(obj.x), y(obj.y) {
     texture = obj.texture;
     sprite = obj.sprite;
     sprite.setPosition(x, y);
-    std::cout << x << " " << y << std::endl;
-    std::cout << "Object copy constructor" << std::endl;
 }
 
 Object::~Object() = default;
@@ -45,8 +43,13 @@ void Object::draw(sf::RenderWindow &window) {
 }
 
 Object::Object(float x, float y, sf::Texture &texture) : x(x), y(y) {
-    std::cout << "Object constructor with texture x= " << x << " y= " << y << std::endl;
     this->texture = texture;
     sprite.setTexture(texture);
+    sprite.setPosition(x, y);
+}
+
+void Object::setPosition(float x, float y) {
+    this->x = x;
+    this->y = y;
     sprite.setPosition(x, y);
 }

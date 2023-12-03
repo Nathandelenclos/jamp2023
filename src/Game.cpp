@@ -10,19 +10,14 @@
 #include <cstdlib>
 #include "Text.hpp"
 
-Game::Game() : windowWidth(1000),
-               windowHeight(1000),
-               window(sf::VideoMode(1000, 1000), "Fact2D") {
-    genereateTextures();
+Game::Game() : window(sf::VideoMode(1000, 1000), "Fact2D") {
+    generateTextures();
     generateGrid();
     generateText();
     viewPosition.x = GridConfig::GRID_SIZE * GridConfig::SQUARE_SIZE / 2;
     viewPosition.y = GridConfig::GRID_SIZE * GridConfig::SQUARE_SIZE / 2;
-    std::cout << "generateGrid" << std::endl;
-    std::cout << "view.setSize" << std::endl;
-    std::cout << "view.setCenter" << std::endl;
     window.setFramerateLimit(60);
-    std::cout << "window.setView" << std::endl;
+    attachedMouse = nullptr;
 }
 
 void Game::run() {
@@ -32,18 +27,22 @@ void Game::run() {
         render();
         sf::Time time = clock.restart();
         deltaTime = time.asSeconds();
-        fps = 1.0f / deltaTime;
     }
 }
 
 void Game::update() {
     for (auto &row: grid) {
         for (auto &caseObj: row) {
-            caseObj.update(event, deltaTime);
+            caseObj.update(event, deltaTime, attachedMouse);
         }
     }
     for (auto &object: objects)
         object.update(event, deltaTime);
+
+    if (attachedMouse != nullptr) {
+        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+        attachedMouse->setPosition(mousePos.x, mousePos.y);
+    }
 }
 
 void Game::render() {
@@ -53,26 +52,11 @@ void Game::render() {
             caseObj.draw(window);
         }
     }
-    for (auto &text: texts) {
-        text.draw(window);
-    }
-
-    // sf::Font font;
-    // if (!font.loadFromFile("./assets/police.ttf")) {
-    //     // Handle font loading failure
-    //     return;
-    // }
-
-    // // Create a text object
-    // sf::Text text;
-    // text.setFont(font);
-    // text.setString("Hello, SFML!");
-    // text.setCharacterSize(24);
-    // text.setFillColor(sf::Color::White);
-    // text.setStyle(sf::Text::Bold);
-    // text.setPosition(100, 100);
-    // window.draw(text);
     generateText();
+
+    for (auto &object: objects)
+        object.draw(window);
+
     window.display();
 }
 
@@ -82,20 +66,23 @@ void Game::processEvents() {
         if (event.type == sf::Event::Closed)
             window.close();
         if (event.type == sf::Event::KeyPressed) {
-
+            if (event.key.code == sf::Keyboard::Escape)
+                window.close();
+            if (event.key.code == sf::Keyboard::A) {
+                objects.emplace_back(event.mouseButton.x, event.mouseButton.y, textures["fuel"]);
+                attachedMouse = &objects.back();
+                attachedMouse->setScale(0.3, 0.3);
+            }
         }
-
     }
 }
 
 void Game::generateGrid() {
-    std::cout << "resize" << std::endl;
     for (int i = 0; i < GridConfig::GRID_SIZE; ++i) {
         std::vector<Case> row;
         for (int j = 0; j < GridConfig::GRID_SIZE; ++j) {
             int x = j * GridConfig::SQUARE_SIZE;
             int y = i * GridConfig::SQUARE_SIZE;
-            std::cout << "x: " << x << " y: " << y << std::endl;
             float randomValue = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
             if (randomValue < GridConfig::ROCK_PROBABILITY) {
                 row.emplace_back(x, y, CaseType::ROCK, textures["rock"]);
@@ -107,16 +94,17 @@ void Game::generateGrid() {
         }
         grid.push_back(row);
     }
-    std::cout << "grid.size()" << grid.size() << "grid[0].size()" << grid[0].size() << std::endl;
 }
 
-void Game::genereateTextures() {
+void Game::generateTextures() {
     textures["rock"] = sf::Texture();
     textures["rock"].loadFromFile("./assets/rock.jpg");
     textures["dirt"] = sf::Texture();
     textures["dirt"].loadFromFile("./assets/dirt.jpg");
     textures["copper"] = sf::Texture();
     textures["copper"].loadFromFile("./assets/copper.jpg");
+    textures["fuel"] = sf::Texture();
+    textures["fuel"].loadFromFile("./assets/Fuel_Generator.png");
 }
 
 void Game::generateText() {
@@ -151,5 +139,4 @@ void Game::generateText() {
     window.draw(text);
     window.draw(text2);
     window.draw(text3);
-
 }
