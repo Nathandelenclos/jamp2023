@@ -9,9 +9,9 @@
 #include "GridConfig.hpp"
 #include <cstdlib>
 
-Game::Game() : windowWidth(800),
-               windowHeight(600),
-               window(sf::VideoMode(800, 600), "Fact2D") {
+Game::Game() : windowWidth(1000),
+               windowHeight(1000),
+               window(sf::VideoMode(1000, 1000), "Fact2D") {
     genereateTextures();
     generateGrid();
     viewPosition.x = GridConfig::GRID_SIZE * GridConfig::SQUARE_SIZE / 2;
@@ -19,7 +19,6 @@ Game::Game() : windowWidth(800),
     std::cout << "generateGrid" << std::endl;
     std::cout << "view.setSize" << std::endl;
     std::cout << "view.setCenter" << std::endl;
-    view = window.getDefaultView();
     window.setFramerateLimit(60);
     std::cout << "window.setView" << std::endl;
 }
@@ -32,7 +31,6 @@ void Game::run() {
         sf::Time time = clock.restart();
         deltaTime = time.asSeconds();
         fps = 1.0f / deltaTime;
-//        std::cout << "fps: " << fps << std::endl;
     }
 }
 
@@ -48,8 +46,6 @@ void Game::update() {
 
 void Game::render() {
     window.clear();
-    view.setCenter(viewPosition);
-    window.setView(view);
     for (auto &row: grid) {
         for (auto &caseObj: row) {
             caseObj.draw(window);
@@ -67,7 +63,7 @@ void Game::processEvents() {
         if (event.type == sf::Event::Closed)
             window.close();
         if (event.type == sf::Event::KeyPressed) {
-            moveView(event.key.code);
+
         }
 
     }
@@ -95,36 +91,7 @@ void Game::generateGrid() {
     std::cout << "grid.size()" << grid.size() << "grid[0].size()" << grid[0].size() << std::endl;
 }
 
-void Game::moveView(sf::Keyboard::Key key) {
-    switch (key) {
-        case sf::Keyboard::Up:
-            viewPosition.y -= velocity * deltaTime;
-            break;
-        case sf::Keyboard::Down:
-            viewPosition.y += velocity * deltaTime;
-            break;
-        case sf::Keyboard::Left:
-            viewPosition.x -= velocity * deltaTime;
-            break;
-        case sf::Keyboard::Right:
-            viewPosition.x += velocity * deltaTime;
-            break;
-        default:
-            break;
-    }
-    std::cout << "viewPosition.x: " << viewPosition.x << " viewPosition.y: " << viewPosition.y << std::endl;
-//    clampViewPosition();
-}
 
-void Game::clampViewPosition() {
-    const float halfViewSize = GridConfig::GRID_SIZE * GridConfig::SQUARE_SIZE / 2;
-    if (viewPosition.x < halfViewSize) viewPosition.x = halfViewSize;
-    if (viewPosition.y < halfViewSize) viewPosition.y = halfViewSize;
-    if (viewPosition.x >= GridConfig::GRID_SIZE) viewPosition.x = GridConfig::GRID_SIZE - 1;
-    if (viewPosition.y >= GridConfig::GRID_SIZE) viewPosition.y = GridConfig::GRID_SIZE - 1;
-    view.setCenter(viewPosition);
-    window.setView(view);
-}
 
 void Game::genereateTextures() {
     textures["rock"] = sf::Texture();

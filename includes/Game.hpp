@@ -36,9 +36,6 @@ private:
     float deltaTime{};
     float fps;
     std::vector<std::vector<Case>> grid;
-    sf::View view;
     sf::Vector2<float> viewPosition;
-    void moveView(sf::Keyboard::Key key);
-    void clampViewPosition();
     std::map<std::string, sf::Texture> textures;
 };

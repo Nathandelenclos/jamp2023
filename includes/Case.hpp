@@ -19,7 +19,7 @@ public:
     Case(float x, float y, CaseType type, sf::Texture &texture);
     ~Case();
     void update(sf::Event event, float deltaTime) override;
-    CaseType type;
     friend std::ostream& operator<<(std::ostream&, const Case&);
+    CaseType type;
 
 };
