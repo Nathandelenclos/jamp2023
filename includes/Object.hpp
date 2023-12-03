@@ -12,17 +12,16 @@
 
 class Object {
 public:
-    Object();
-    Object(float x, float y);
     Object(float x, float y, const std::string& texturePath);
+    Object(float x, float y, sf::Texture &texture);
     Object(const Object &obj);
     ~Object();
     void update(sf::Event event, float deltaTime);
     void draw(sf::RenderWindow &window);
 
 protected:
-    float x;
-    float y;
+    float x{};
+    float y{};
     sf::Sprite sprite;
     sf::Texture texture;
 };

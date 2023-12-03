@@ -4,18 +4,10 @@
 
 #include "Case.hpp"
 
-Case::Case() : Object()
-{
-    texture.loadFromFile("./assets/Case.png");
-    sprite.setTexture(texture);
-}
-
-Case::Case(float x, float y) : Object(x, y)
-{
-    texture.loadFromFile("./assets/Case.png");
-    sprite.setTexture(texture);
-}
-
 Case::Case(float x, float y, const std::string& texturePath) : Object(x, y, texturePath) {
-    // The texture is already loaded by the Object constructor
+    std::cout << "Case constructor with " << texturePath << " x= " << x << " y= " << y << std::endl;
+}
+
+Case::Case(float x, float y, sf::Texture &texture) : Object(x, y, texture) {
+    std::cout << "Case constructor with texture x= " << x << " y= " << y << std::endl;
 }

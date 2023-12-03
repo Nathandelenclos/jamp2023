@@ -22,9 +22,13 @@ public:
     void update();
     void render();
     void generateGrid();
+    void genereateTextures();
 
 private:
+    const float velocity = 100000.0f;
     sf::RenderWindow window;
+    int windowWidth;
+    int windowHeight;
     std::vector<Object> objects;
     std::vector<Text> texts;
     sf::Event event{};
@@ -33,7 +37,8 @@ private:
     float fps;
     std::vector<std::vector<Case>> grid;
     sf::View view;
-    sf::Vector2i viewPosition;
+    sf::Vector2<float> viewPosition;
     void moveView(sf::Keyboard::Key key);
     void clampViewPosition();
+    std::map<std::string, sf::Texture> textures;
 };
