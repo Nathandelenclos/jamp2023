@@ -13,6 +13,7 @@
 #include "Text.hpp"
 #include "Case.hpp"
 #include "GridConfig.hpp"
+#include "Engine.hpp"
 
 class Game {
 public:
@@ -35,7 +36,8 @@ private:
     std::vector<std::vector<Case>> grid;
     sf::Vector2<float> viewPosition;
     std::map<std::string, sf::Texture> textures;
-    Object *attachedMouse;
+    Engine *attachedMouse;
+    std::vector<Engine> engines;
     std::vector<sf::Text> texts;
     static std::string input;
 };

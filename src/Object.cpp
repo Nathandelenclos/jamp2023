@@ -25,17 +25,17 @@ Object::~Object() = default;
 void Object::update(sf::Event event, float deltaTime) {
 
     static bool isPressed = false;
-    if (event.mouseButton.x >= x && event.mouseButton.x <= x + GridConfig::SQUARE_SIZE &&
-        event.mouseButton.y >= y && event.mouseButton.y <= y + GridConfig::SQUARE_SIZE) {
+    sf::Rect<float> bounds = sprite.getGlobalBounds();
+    if (event.mouseButton.x >= bounds.left && event.mouseButton.x <= bounds.left + bounds.width &&
+        event.mouseButton.y >= bounds.top && event.mouseButton.y <= bounds.top + bounds.height) {
         if (event.type == sf::Event::MouseButtonPressed) {
             isPressed = true;
         }
         if (event.type == sf::Event::MouseButtonReleased && isPressed) {
-            std::cout << this << std::endl;
+            std::cout << *this << std::endl;
             isPressed = false;
         }
     }
-
 }
 
 void Object::draw(sf::RenderWindow &window) {
@@ -52,4 +52,9 @@ void Object::setPosition(float x, float y) {
     this->x = x;
     this->y = y;
     sprite.setPosition(x, y);
+}
+
+std::ostream &operator<<(std::ostream &stream, const Object &object) {
+    stream << "Object(" << object.x << ", " << object.y << ")";
+    return stream;
 }

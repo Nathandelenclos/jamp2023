@@ -17,6 +17,8 @@ add_executable(jam src/main.cpp
         src/Text.cpp
         includes/Text.hpp
         src/Case.cpp
-        includes/Case.hpp)
+        includes/Case.hpp
+        src/Engine.cpp
+        includes/Engine.hpp)
 
 target_link_libraries(jam sfml-system sfml-window sfml-graphics sfml-audio)

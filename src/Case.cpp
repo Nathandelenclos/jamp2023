@@ -42,8 +42,6 @@ void Case::update(sf::Event event, float deltaTime, Object *&attachedMouse) {
     update(event, deltaTime);
     if (attachedMouse == nullptr) return;
     if (event.type == sf::Event::MouseButtonReleased) {
-        std::cout << " x=" << x << " y=" << y << std::endl;
-        attachedMouse->setPosition(this->x, this->y);
         attachedMouse = nullptr;
     }
 }

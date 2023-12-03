@@ -57,6 +57,8 @@ void Game::render() {
     for (auto &object: objects)
         object.draw(window);
 
+    for (auto &engine: engines)
+        engine.draw(window);
     window.display();
 }
 
@@ -99,9 +101,10 @@ void Game::processEvents() {
                     sequenceState = None;
                     break;
             }
-            if (event.key.code == sf::Keyboard::A) {
-                objects.emplace_back(event.mouseButton.x, event.mouseButton.y, textures["fuel"]);
-                attachedMouse = &objects.back();
+            if (event.key.code == sf::Keyboard::Num1) {
+                engines.emplace_back(event.mouseButton.x, event.mouseButton.y, EngineType::DRILL, textures["fuel"]);
+                attachedMouse = &engines.back();
+                attachedMouse->setOrigin(270, 300);
                 attachedMouse->setScale(0.3, 0.3);
             }
         }
