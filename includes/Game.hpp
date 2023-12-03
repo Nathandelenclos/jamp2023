@@ -11,6 +11,8 @@
 #include <vector>
 #include "Object.hpp"
 #include "Text.hpp"
+#include "Case.hpp"
+#include "GridConfig.hpp"
 
 class Game {
 public:
@@ -19,6 +21,8 @@ public:
     void processEvents();
     void update();
     void render();
+    void generateGrid();
+
 private:
     sf::RenderWindow window;
     std::vector<Object> objects;
@@ -27,4 +31,9 @@ private:
     sf::Clock clock;
     float deltaTime{};
     float fps;
+    std::vector<std::vector<Case>> grid;
+    sf::View view;
+    sf::Vector2i viewPosition;
+    void moveView(sf::Keyboard::Key key);
+    void clampViewPosition();
 };

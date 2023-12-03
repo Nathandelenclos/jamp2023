@@ -35,17 +35,6 @@ Object::~Object() = default;
 
 void Object::update(sf::Event event, float deltaTime)
 {
-
-    if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::Up)
-            y -= 100 * deltaTime;
-        if (event.key.code == sf::Keyboard::Down)
-            y += 100 * deltaTime;
-        if (event.key.code == sf::Keyboard::Left)
-            x -= 100 * deltaTime;
-        if (event.key.code == sf::Keyboard::Right)
-            x += 100 * deltaTime;
-    }
     sprite.setPosition(x, y);
 }
 
