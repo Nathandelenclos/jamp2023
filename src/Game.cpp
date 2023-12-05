@@ -51,7 +51,7 @@ void Game::update() {
 
     if (linkStart != nullptr && linkEnd != nullptr) {
         links.emplace_back(linkStart, linkEnd);
-        std::cout << links.back() << std::endl;
+        // std::cout << links.back() << std::endl;
         linkStart = nullptr;
         linkEnd = nullptr;
     }

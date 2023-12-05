@@ -21,7 +21,7 @@ void Case::update(sf::Event event, float deltaTime) {
             isPressed = true;
         }
         if (event.type == sf::Event::MouseButtonReleased && isPressed) {
-            std::cout << *this << std::endl;
+            // std::cout << *this << std::endl;
             isPressed = false;
         }
     }

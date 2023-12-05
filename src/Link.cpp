@@ -40,18 +40,18 @@ Link::Link(const Link &obj) {
 
 void Link::update(int *&money, int moneyObjective) {
     int elapsedTime = clock.getElapsedTime().asMilliseconds();
-    std::cout << "elapsedTime: " << elapsedTime << std::endl;
-    std::cout << "time: " << time << std::endl;
+    // std::cout << "elapsedTime: " << elapsedTime << std::endl;
+    // std::cout << "time: " << time << std::endl;
     if (elapsedTime >= 1000) {
-        std::cout << "test" << std::endl;
+        // std::cout << "test" << std::endl;
         if (this->engine1->type == EngineType::DRILL && this->engine2->type == EngineType::FORGE) {
             *money += 5;
         } else if (this->engine1->type == EngineType::FORGE && this->engine2->type == EngineType::INDUSTRY) {
             *money += 10;
         }
-        std::cout << "Money: " << *money << std::endl;
+        // std::cout << "Money: " << *money << std::endl;
         if (*money >= moneyObjective) {
-            std::cout << "You win !" << std::endl;
+            // std::cout << "You win !" << std::endl;
             exit(0);
         }
         clock.restart();

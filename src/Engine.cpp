@@ -25,10 +25,10 @@ void Engine::update(sf::Event event, float deltaTime, Engine *attachedEngine,  E
         if (event.type == sf::Event::MouseButtonReleased && isPressed) {
             if (linkStart == nullptr) {
                 linkStart = this;
-                std::cout << "linkStart: " << *linkStart << std::endl;
+                // std::cout << "linkStart: " << *linkStart << std::endl;
             } else if (linkEnd == nullptr) {
                 linkEnd = this;
-                std::cout << "linkEnd: " << *linkEnd << std::endl;
+                // std::cout << "linkEnd: " << *linkEnd << std::endl;
             }
             isPressed = false;
         }
