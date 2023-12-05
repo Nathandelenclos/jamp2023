@@ -17,7 +17,9 @@ Game::Game() : window(sf::VideoMode(1000, 1000), "Fact2D") {
     viewPosition.x = GridConfig::GRID_SIZE * GridConfig::SQUARE_SIZE / 2;
     viewPosition.y = GridConfig::GRID_SIZE * GridConfig::SQUARE_SIZE / 2;
     window.setFramerateLimit(60);
-    attachedMouse = nullptr;
+    attachedEngine = nullptr;
+    linkStart = nullptr;
+    linkEnd = nullptr;
 }
 
 void Game::run() {
@@ -33,15 +35,29 @@ void Game::run() {
 void Game::update() {
     for (auto &row: grid) {
         for (auto &caseObj: row) {
-            caseObj.update(event, deltaTime, attachedMouse);
+            caseObj.update(event, deltaTime, attachedEngine);
         }
     }
     for (auto &object: objects)
         object.update(event, deltaTime);
 
-    if (attachedMouse != nullptr) {
+    for (auto &engine: engines)
+        engine.update(event, deltaTime, attachedEngine, linkStart, linkEnd);
+
+    for (auto link: links) {
+        int *ptrMoney = &money;
+        link.update(ptrMoney, moneyObjective);
+    }
+
+    if (linkStart != nullptr && linkEnd != nullptr) {
+        links.emplace_back(linkStart, linkEnd);
+        std::cout << links.back() << std::endl;
+        linkStart = nullptr;
+        linkEnd = nullptr;
+    }
+    if (attachedEngine != nullptr) {
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-        attachedMouse->setPosition(mousePos.x, mousePos.y);
+        attachedEngine->setPosition(mousePos.x, mousePos.y);
     }
 }
 
@@ -49,7 +65,7 @@ void Game::render() {
     window.clear();
     for (auto &row: grid) {
         for (auto &caseObj: row) {
-            caseObj.draw(window, attachedMouse);
+            caseObj.draw(window, attachedEngine);
         }
     }
     generateText();
@@ -59,6 +75,10 @@ void Game::render() {
 
     for (auto &engine: engines)
         engine.draw(window);
+
+    for (auto &link: links)
+        link.draw(window);
+
     window.display();
 }
 
@@ -102,26 +122,26 @@ void Game::processEvents() {
                     break;
             }
             if (event.key.code == sf::Keyboard::Num1) {
-                if (attachedMouse != nullptr)
+                if (attachedEngine != nullptr)
                     engines.pop_back();
                 engines.emplace_back(event.mouseButton.x, event.mouseButton.y, EngineType::DRILL, textures["fuel"]);
-                attachedMouse = &engines.back();
-                attachedMouse->setOrigin(270, 300);
-                attachedMouse->setScale(0.3, 0.3);
+                attachedEngine = &engines.back();
+                attachedEngine->setOrigin(270, 300);
+                attachedEngine->setScale(0.3, 0.3);
             } else if (event.key.code == sf::Keyboard::Num2) {
-                if (attachedMouse != nullptr)
+                if (attachedEngine != nullptr)
                     engines.pop_back();
                 engines.emplace_back(event.mouseButton.x, event.mouseButton.y, EngineType::FORGE, textures["forge"]);
-                attachedMouse = &engines.back();
-                attachedMouse->setOrigin(270, 300);
-                attachedMouse->setScale(0.3, 0.3);
+                attachedEngine = &engines.back();
+                attachedEngine->setOrigin(170, 200);
+                attachedEngine->setScale(0.3, 0.3);
             } else if (event.key.code == sf::Keyboard::Num3) {
-                if (attachedMouse != nullptr)
+                if (attachedEngine != nullptr)
                     engines.pop_back();
                 engines.emplace_back(event.mouseButton.x, event.mouseButton.y, EngineType::INDUSTRY, textures["constructor"]);
-                attachedMouse = &engines.back();
-                attachedMouse->setOrigin(270, 300);
-                attachedMouse->setScale(0.3, 0.3);
+                attachedEngine = &engines.back();
+                attachedEngine->setOrigin(270, 300);
+                attachedEngine->setScale(0.3, 0.3);
             }
         }
     }
